@@ -1,39 +1,61 @@
 package com.ecommerce.microcommerce.model;
 
-import java.util.ArrayList;
-
 public class Personnage {
+    //state of an object
+    protected int id;
+    protected String name;
+    protected String type;
 
-        protected ArrayList<Hero> personnages;
+    //constructor method
+    public Personnage() {
 
-        //constructor method
-        public Personnage() {
-            this.personnages=new ArrayList();
-            for (int i = 0; i < 5; i++) {
-                int chance=(int) (Math.random() * 2);
-                String type=(chance==0)?"Guerrier":"Magicien";
-                String name=type+"_"+i;
-                personnages.add(new Hero(i,name,type));
-            }
-        }
-
-        public ArrayList getPersonnages() {
-            return personnages;
-        }
-
-        public void setPersonnages(ArrayList personnages) {
-            this.personnages = personnages;
-        }
-
-        public Hero getHero(int id) {
-            return personnages.get(id);
-        }
-        @Override
-        public String toString() {
-            return "Personnages{" +
-                    "personnages=" + personnages +
-                    '}';
-        }
     }
 
 
+
+    public Personnage(int id) {
+        this.id=id;
+        int chance=(int) (Math.random() * 2);
+        this.type=(chance==0)?"Guerrier":"Magicien";
+        this.name=type+"_"+id;
+    }
+
+    public Personnage(int id, String name, String type ) {
+        this.id=id;
+        this.name = name;
+        this.type = type;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    @Override
+    public String toString() {
+        return "Hero{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                '}';
+    }
+}

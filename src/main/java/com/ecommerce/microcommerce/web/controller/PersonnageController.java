@@ -1,23 +1,52 @@
 package com.ecommerce.microcommerce.web.controller;
 
+import com.ecommerce.microcommerce.dao.PersonnageDao;
 import com.ecommerce.microcommerce.model.*;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.util.ArrayList;
+import java.net.URI;
+import java.util.List;
 
 @RestController
 public class PersonnageController {
 
-    Personnage personnages= new Personnage();
+    @Autowired
+    private PersonnageDao personnageDao;
+
     @GetMapping("/Personnages")
-    public ArrayList display_personnages() {
-        return personnages.getPersonnages();
+    public List<Personnage> listePersonnages() {
+        return personnageDao.findAll();
     }
     @GetMapping(value = "/Personnages/{id}")
-    public Hero display_hero(@PathVariable int id) {
-        return personnages.getHero(id);
+    public Personnage displayPersonnage(@PathVariable int id) {
+        return personnageDao.findById(id);
+    }
+    @PostMapping(value="/Personnages")
+    public ResponseEntity<Void> addPersonnage(@RequestBody Personnage personnage) {
+       Personnage personnageAdded= personnageDao.save(personnage);
+
+        if (personnageAdded == null) {
+            return ResponseEntity.noContent().build();
+        }
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(personnageAdded.getId())
+                .toUri();
+
+        return ResponseEntity.created(location).build();
+
+    }
+    @PutMapping(value="/Personnages/{id}")
+    public void updatePersonnage(@RequestBody Personnage personnage,@PathVariable int id) {
+         personnageDao.update(personnage,id);
+    }
+    @DeleteMapping(value = "/Personnages/{id}")
+    public void deletePersonnage(@PathVariable int id) {
+        personnageDao.delete(id);
     }
 }
 
