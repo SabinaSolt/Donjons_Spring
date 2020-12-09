@@ -32,8 +32,16 @@ public class PersonnageDaoImpl implements PersonnageDao{
 
     @Override
     public Personnage save(Personnage personnage) {
-        personnages.add(personnage);
-        return personnage;
+
+        Personnage persoExist= personnages.stream()
+                .filter(p->p.getId()== personnage.getId())
+                .findFirst().orElse(null);
+
+        if(persoExist==null) {
+            personnages.add(personnage);
+            return personnage;
+        }
+        return null;
     }
 
     @Override
@@ -49,7 +57,7 @@ public class PersonnageDaoImpl implements PersonnageDao{
     }
 
     @Override
-    public void delete(int id) {
-        personnages.removeIf(p->p.getId()==id);
+    public Boolean delete(int id) {
+       return personnages.removeIf(p->p.getId()==id);
     }
 }

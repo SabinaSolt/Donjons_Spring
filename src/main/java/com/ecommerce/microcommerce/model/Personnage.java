@@ -1,8 +1,13 @@
 package com.ecommerce.microcommerce.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Personnage {
     //state of an object
-    protected int id;
+    protected @Id @GeneratedValue int id;
     protected String name;
     protected String type;
 
@@ -10,8 +15,6 @@ public class Personnage {
     public Personnage() {
 
     }
-
-
 
     public Personnage(int id) {
         this.id=id;

@@ -22,8 +22,12 @@ public class PersonnageController {
         return personnageDao.findAll();
     }
     @GetMapping(value = "/Personnages/{id}")
-    public Personnage displayPersonnage(@PathVariable int id) {
-        return personnageDao.findById(id);
+    public ResponseEntity<Void>  displayPersonnage(@PathVariable int id) {
+        Personnage personnage= personnageDao.findById(id);
+        if(personnage==null) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok().build();
     }
     @PostMapping(value="/Personnages")
     public ResponseEntity<Void> addPersonnage(@RequestBody Personnage personnage) {
@@ -42,12 +46,21 @@ public class PersonnageController {
 
     }
     @PutMapping(value="/Personnages/{id}")
-    public void updatePersonnage(@RequestBody Personnage personnage,@PathVariable int id) {
-         personnageDao.update(personnage,id);
+    public ResponseEntity<Void> updatePersonnage(@RequestBody Personnage personnage,@PathVariable int id) {
+         Personnage personnageUpdated=personnageDao.update(personnage,id);
+         if(personnageUpdated==null) {
+             return ResponseEntity.noContent().build();
+         }
+        return ResponseEntity.ok().build();
     }
+
     @DeleteMapping(value = "/Personnages/{id}")
-    public void deletePersonnage(@PathVariable int id) {
-        personnageDao.delete(id);
+    public ResponseEntity<Void> deletePersonnage(@PathVariable int id) {
+        Boolean isDeleted=personnageDao.delete(id);
+        if(!isDeleted) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok().build();
     }
 }
 

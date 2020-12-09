@@ -8,5 +8,5 @@ public interface PersonnageDao {
     public Personnage findById(int id);
     public Personnage save(Personnage personnage);
     public Personnage update(Personnage personnage, int id);
-    public void delete(int id);
+    public Boolean delete(int id);
 }
