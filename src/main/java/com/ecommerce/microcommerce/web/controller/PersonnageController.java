@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.List;
+
 @Api( "API pour es opérations CRUD sur les produits.")
 @RestController
 public class PersonnageController {
@@ -18,16 +18,20 @@ public class PersonnageController {
     private PersonnageDao personnageDao;
 
     @GetMapping("/Personnages")
-    public List<Personnage> listePersonnages() {
-        return personnageDao.findAll();
+    public PersonList listePersonnages() {
+        PersonList personList=new PersonList();
+        personList.setPersonList(personnageDao.findAll());
+        return personList;
+
     }
     @GetMapping(value = "/Personnages/{id}")
-    public ResponseEntity<Void>  displayPersonnage(@PathVariable int id) {
+    public Personnage  displayPersonnage(@PathVariable int id) {
         Personnage personnage= personnageDao.findById(id);
-        if(personnage==null) {
+        /*if(personnage==null) {
             return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().build();*/
+        return personnage;
     }
     @PostMapping(value="/Personnages")
     public ResponseEntity<Void> addPersonnage(@RequestBody Personnage personnage) {
