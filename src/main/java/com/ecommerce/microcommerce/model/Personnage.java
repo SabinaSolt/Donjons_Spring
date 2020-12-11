@@ -2,12 +2,15 @@ package com.ecommerce.microcommerce.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class Personnage {
     //state of an object
-    protected @Id @GeneratedValue int id;
+    @Id
+    @GeneratedValue (strategy= GenerationType.AUTO)
+    protected  int id;
     protected String name;
     protected String type;
 
