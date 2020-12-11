@@ -10,7 +10,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 
-@Api( "API pour es opérations CRUD sur les produits.")
+
 @RestController
 public class PersonnageController {
 
