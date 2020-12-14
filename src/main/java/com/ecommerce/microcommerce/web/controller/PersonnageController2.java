@@ -38,7 +38,7 @@ public class PersonnageController2 {
         return "Updated";
     }
 
-    @DeleteMapping (path="/all/{id}")
+    @DeleteMapping (path="/delete/{id}")
     public String deletePersonnage(@PathVariable int id) {
         personnageRepository.deleteById(id);
         return "Deleted";
